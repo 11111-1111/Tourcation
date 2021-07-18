@@ -13,6 +13,11 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="styles.css" rel="stylesheet" />
+
+
+    <script src="places NYC api.js"></script>
+
+<script src="jquery-3.6.0.min.js"></script>
     </head>
     <body id="page-top">
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -49,91 +54,236 @@
 
           <script>
 
+          var key = "39c873996e9fb79c84b155bc1e9e737e";
+          var city = "New York";
+          var url = "https://api.openweathermap.org/data/2.5/forecast";
 
-            fetch('https://api.openweathermap.org/data/2.5/weather?q=New York&units=imperial&appid=39c873996e9fb79c84b155bc1e9e737e').then(res => {
-              return res.json();
-            }).then(function(res) {
+          function weatherForecast(city) {
+              fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + city+ '&appid=' + key+'&units=imperial').then(res => {
+                return res.json();
+              }).then(function(res) {
 
-              var maxtempNYC1 = res.main.temp_max;
-              console.log(maxtempNYC1)
-            });
+                console.log(res);
+
+                // today
+                var todayTemp1 =  res.list[1].main.temp + " °F";
+                var todayFeel1 =  res.list[1].main.feels_like + " °F";
+                var todayHumid1 = res.list[1].main.humidity + "%";
+                var todayDesc1 = res.list[1].weather[0].description;
+                var toDate = res.list[1].dt_txt;
+
+                document.getElementById('todayTemp').innerHTML = "Temperature: " + todayTemp1;
+                document.getElementById('todayFeel').innerHTML = "Feels Like: " + todayFeel1;
+                document.getElementById('todayHumid').innerHTML = "Humidity: " + todayHumid1;
+                document.getElementById('todayDesc').innerHTML = "Description: " + todayDesc1;
+                document.getElementById('toDate').innerHTML = toDate;
+
+                //tomorrow
+                var tomTemp1 =  res.list[9].main.temp + " °F";
+                var tomFeel1 =  res.list[9].main.feels_like + " °F";
+                var tomHumid1 = res.list[9].main.humidity + "%";
+                var tomDesc1 = res.list[9].weather[0].description;
+                var tomDate = res.list[9].dt_txt;
+
+                document.getElementById('tomTemp').innerHTML = "Temperature: " + tomTemp1;
+                document.getElementById('tomFeel').innerHTML = "Feels Like: " + tomFeel1;
+                document.getElementById('tomHumid').innerHTML = "Humidity: " + tomHumid1;
+                document.getElementById('tomDesc').innerHTML = "Description: " + tomDesc1;
+                document.getElementById('tomDate').innerHTML = tomDate;
+
+                //overmorrow
+
+                var overTemp1 =  res.list[17].main.temp + " °F";
+                var overFeel1 =  res.list[17].main.feels_like + " °F";
+                var overHumid1 = res.list[17].main.humidity + "%";
+                var overDesc1 = res.list[17].weather[0].description;
+                var overDate = res.list[17].dt_txt;
+
+                document.getElementById('overTemp').innerHTML = "Temperature: " + overTemp1;
+                document.getElementById('overFeel').innerHTML = "Feels Like: " + overFeel1;
+                document.getElementById('overHumid').innerHTML = "Humidity: " + overHumid1;
+                document.getElementById('overDesc').innerHTML = "Description: " + overDesc1;
+                document.getElementById('overDate').innerHTML = overDate;
 
 
 
+                var overTemp2 =  res.list[25].main.temp + " °F";
+                var overFeel2 =  res.list[25].main.feels_like + " °F";
+                var overHumid2 = res.list[25].main.humidity + "%";
+                var overDesc2 = res.list[25].weather[0].description;
+                var overDate2 = res.list[25].dt_txt;
+
+                document.getElementById('overTemp2').innerHTML = "Temperature: " + overTemp2;
+                document.getElementById('overFeel2').innerHTML = "Feels Like: " + overFeel2;
+                document.getElementById('overHumid2').innerHTML = "Humidity: " + overHumid2;
+                document.getElementById('overDesc2').innerHTML = "Description: " + overDesc2;
+                document.getElementById('overDate2').innerHTML = overDate2;
+
+
+                var overTemp3 =  res.list[33].main.temp + " °F";
+                var overFeel3 =  res.list[33].main.feels_like + " °F";
+                var overHumid3 = res.list[33].main.humidity + "%";
+                var overDesc3 = res.list[33].weather[0].description;
+                var overDate3 = res.list[33].dt_txt;
+
+                document.getElementById('overTemp3').innerHTML = "Temperature: " + overTemp3;
+                document.getElementById('overFeel3').innerHTML = "Feels Like: " + overFeel3;
+                document.getElementById('overHumid3').innerHTML = "Humidity: " + overHumid3;
+                document.getElementById('overDesc3').innerHTML = "Description: " + overDesc3;
+                document.getElementById('overDate3').innerHTML = overDate3;
+
+              });
+
+          }
+
+
+
+
+          weatherForecast(city);
           </script>
-
 
 
           <div class="card-group">
             <div class="card">
-              <img src="..." class="card-img-top" alt="...">
+              <script>
+                var today = new Date();
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                var dateTime = date+' '+time;
+              </script>
               <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                <div class="title" style:"text-align:center;  font-weight: bold;">
+                <h5 class="text-center card-title" id = "toDate"></h5>
+                <hr>
+              </div>
+                <ul>
+                  <li id = "todayTemp"></li>
+                  <li id = "todayFeel"></li>
+                  <li id = "todayHumid"></li>
+                  <li id = "todayDesc"></li>
+                </ul>
               </div>
               <div class="card-footer">
               </div>
             </div>
+
             <div class="card">
-              <img src="..." class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                <div class="title" style:"text-align:center;  font-weight: bold;">
+                <h5 class="text-center card-title" id = "tomDate"></h5>
+                <hr>
+              </div>
+
+                <ul>
+                  <li id = "tomTemp"></li>
+                  <li id = "tomFeel"></li>
+                  <li id = "tomHumid"></li>
+                  <li id = "tomDesc"></li>
+                </ul>
+
               </div>
               <div class="card-footer">
               </div>
             </div>
+
+
             <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                <div class="card-body">
+                  <div class="title" style:"text-align:center;  font-weight: bold;">
+                  <h5 class="text-center card-title" id = "overDate"></h5>
+                  <hr>
+                </div>
+
+                <ul>
+                  <li id = "overTemp"></li>
+                  <li id = "overFeel"></li>
+                  <li id = "overHumid"></li>
+                  <li id = "overDesc"></li>
+                </ul>
+
               </div>
               <div class="card-footer">
               </div>
             </div>
+
+
             <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                <div class="card-body">
+                  <div class="title" style:"text-align:center;  font-weight: bold;">
+                  <h5 class="text-center card-title" id = "overDate2"></h5>
+                  <hr>
+                </div>
+
+                <ul>
+                  <li id = "overTemp2"></li>
+                  <li id = "overFeel2"></li>
+                  <li id = "overHumid2"></li>
+                  <li id = "overDesc2"></li>
+                </ul>
+
               </div>
               <div class="card-footer">
               </div>
-            </div>
-            <div class="card">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title"></h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
               </div>
+
+            <div class="card">
+
+              <div class="card-body">
+                <div class="title" style:"text-align:center;  font-weight: bold;">
+                <h5 class="text-center card-title" id = "overDate3"></h5>
+                <hr>
+                </div>
+
+                <ul>
+                <li id = "overTemp3"></li>
+                <li id = "overFeel3"></li>
+                <li id = "overHumid3"></li>
+                <li id = "overDesc3"></li>
+                </ul>
+
+                </div>
               <div class="card-footer">
+
+              </div>
               </div>
             </div>
           </div>
 
+          <h3 style = "padding-top: 1em; padding-bottom: 1em; padding-left: 1em;">Foot Traffic</h3>
+          <div id="traffic" class="container-md" style= "height: 20em; padding-bottom: 10em;">
+
+            <script>
+
+            const params = new URLSearchParams({
+             'api_key_private': 'pri_d89e1232373646249fc1f28eeb8bf03c',
+              'venue_name': 'McDonalds',
+              'venue_address': 'Ocean Ave, San Fransisco'
+            });
+
+          //  fetch(`https://besttime.app/api/v1/forecasts?${params}`, {
+              method: 'POST'
+            }).then(function(data) {
+              console.log(JSON.stringify(data));
+            });
+
+            </script>
+
+
+          </div>
+
+          <h2 style = "padding-top: 1em; padding-bottom: 1em; padding-left:1em">Map</h3>
+          <div id="map" class="container-md" style= "height: 20em; padding-bottom: 10em;">
+
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuASUTc58ai6Ee1dmlxrt-bI8WKpWUX1o&callback=initMap&libraries=places&v=weekly">
+
+        </script>
+
+</div>
+        </div>
 
 
 
-          <h3>Sub-heading</h3>
-          <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <ul>
-            <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-            <li>Donec id elit non mi porta gravida at eget metus.</li>
-            <li>Nulla vitae elit libero, a pharetra augue.</li>
-          </ul>
-          <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-          <ol>
-            <li>Vestibulum id ligula porta felis euismod semper.</li>
-            <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
-            <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
-          </ol>
-          <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
-        </div><!-- /.blog-post -->
-
-
-
-        <section class="contact-section bg-black">
+        <section class="contact-section bg-black" style="margin-top: 5em;">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-4 mb-3 mb-md-0" style="padding-bottom: 5em">
