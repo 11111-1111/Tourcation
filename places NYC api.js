@@ -2,7 +2,7 @@ let map;
 let service;
 let infowindow;
 
-function initMap() {
+function initMap(latitude, longitude) {
   const ny = new google.maps.LatLng(40.730610, -73.935242);
   infowindow = new google.maps.InfoWindow();
   map = new google.maps.Map(document.getElementById("map"), {

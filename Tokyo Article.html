@@ -1,0 +1,349 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>TourCation - Main</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="styles.css" rel="stylesheet" />
+
+
+    <script>
+
+    let map;
+    let service;
+    let infowindow;
+
+    function initMap(latitude, longitude) {
+      const Tokyo = new google.maps.LatLng(35.652832, 139.839478);
+      infowindow = new google.maps.InfoWindow();
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: Tokyo,
+        zoom: 15,
+      });
+      const request = {
+        query: "Tokyo",
+        fields: ["name", "geometry"],
+      };
+      service = new google.maps.places.PlacesService(map);
+      service.findPlaceFromQuery(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+          for (let i = 0; i < results.length; i++) {
+            createMarker(results[i]);
+          }
+          map.setCenter(results[0].geometry.location);
+        }
+      });
+    }
+
+    function createMarker(place) {
+      if (!place.geometry || !place.geometry.location) return;
+      const marker = new google.maps.Marker({
+        map,
+        position: place.geometry.location,
+      });
+      google.maps.event.addListener(marker, "click", () => {
+        infowindow.setContent(place.name || "");
+        infowindow.open(map);
+      });
+    }
+
+
+    </script>
+
+<script src="jquery-3.6.0.min.js"></script>
+    </head>
+    <body id="page-top">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="scripts.js"></script>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="index.html">TourCation</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="all locations.html">All Locations</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+          <div class="col-md-6 px-0">
+            <h1 class="display-4 font-italic" style="padding-top: 1em">Tokyo</h1>
+            <p class="lead my-3"> Visit another historical city, with a unique culture that will leave you breathless. </p>
+
+          </div>
+        </div>
+
+
+        <div class="blog-post" style="padding-top: 1em; padding-left: 2em;">
+
+          <h2>5 Day Weather Forecast</h2>
+
+          <script>
+
+          var key = "39c873996e9fb79c84b155bc1e9e737e";
+          var city = "Tokyo";
+          var url = "https://api.openweathermap.org/data/2.5/forecast";
+
+          function weatherForecast(city) {
+              fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + city+ '&appid=' + key+'&units=imperial').then(res => {
+                return res.json();
+              }).then(function(res) {
+
+                console.log(res);
+
+                // today
+                var todayTemp1 =  res.list[1].main.temp + " °F";
+                var todayFeel1 =  res.list[1].main.feels_like + " °F";
+                var todayHumid1 = res.list[1].main.humidity + "%";
+                var todayDesc1 = res.list[1].weather[0].description;
+                var toDate = res.list[1].dt_txt;
+
+                document.getElementById('todayTemp').innerHTML = "Temperature: " + todayTemp1;
+                document.getElementById('todayFeel').innerHTML = "Feels Like: " + todayFeel1;
+                document.getElementById('todayHumid').innerHTML = "Humidity: " + todayHumid1;
+                document.getElementById('todayDesc').innerHTML = "Description: " + todayDesc1;
+                document.getElementById('toDate').innerHTML = toDate;
+
+                //tomorrow
+                var tomTemp1 =  res.list[9].main.temp + " °F";
+                var tomFeel1 =  res.list[9].main.feels_like + " °F";
+                var tomHumid1 = res.list[9].main.humidity + "%";
+                var tomDesc1 = res.list[9].weather[0].description;
+                var tomDate = res.list[9].dt_txt;
+
+                document.getElementById('tomTemp').innerHTML = "Temperature: " + tomTemp1;
+                document.getElementById('tomFeel').innerHTML = "Feels Like: " + tomFeel1;
+                document.getElementById('tomHumid').innerHTML = "Humidity: " + tomHumid1;
+                document.getElementById('tomDesc').innerHTML = "Description: " + tomDesc1;
+                document.getElementById('tomDate').innerHTML = tomDate;
+
+                //overmorrow
+
+                var overTemp1 =  res.list[17].main.temp + " °F";
+                var overFeel1 =  res.list[17].main.feels_like + " °F";
+                var overHumid1 = res.list[17].main.humidity + "%";
+                var overDesc1 = res.list[17].weather[0].description;
+                var overDate = res.list[17].dt_txt;
+
+                document.getElementById('overTemp').innerHTML = "Temperature: " + overTemp1;
+                document.getElementById('overFeel').innerHTML = "Feels Like: " + overFeel1;
+                document.getElementById('overHumid').innerHTML = "Humidity: " + overHumid1;
+                document.getElementById('overDesc').innerHTML = "Description: " + overDesc1;
+                document.getElementById('overDate').innerHTML = overDate;
+
+
+
+                var overTemp2 =  res.list[25].main.temp + " °F";
+                var overFeel2 =  res.list[25].main.feels_like + " °F";
+                var overHumid2 = res.list[25].main.humidity + "%";
+                var overDesc2 = res.list[25].weather[0].description;
+                var overDate2 = res.list[25].dt_txt;
+
+                document.getElementById('overTemp2').innerHTML = "Temperature: " + overTemp2;
+                document.getElementById('overFeel2').innerHTML = "Feels Like: " + overFeel2;
+                document.getElementById('overHumid2').innerHTML = "Humidity: " + overHumid2;
+                document.getElementById('overDesc2').innerHTML = "Description: " + overDesc2;
+                document.getElementById('overDate2').innerHTML = overDate2;
+
+
+                var overTemp3 =  res.list[33].main.temp + " °F";
+                var overFeel3 =  res.list[33].main.feels_like + " °F";
+                var overHumid3 = res.list[33].main.humidity + "%";
+                var overDesc3 = res.list[33].weather[0].description;
+                var overDate3 = res.list[33].dt_txt;
+
+                document.getElementById('overTemp3').innerHTML = "Temperature: " + overTemp3;
+                document.getElementById('overFeel3').innerHTML = "Feels Like: " + overFeel3;
+                document.getElementById('overHumid3').innerHTML = "Humidity: " + overHumid3;
+                document.getElementById('overDesc3').innerHTML = "Description: " + overDesc3;
+                document.getElementById('overDate3').innerHTML = overDate3;
+
+              });
+
+          }
+
+
+
+
+          weatherForecast(city);
+          </script>
+
+
+          <div class="card-group">
+            <div class="card">
+              <script>
+                var today = new Date();
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                var dateTime = date+' '+time;
+              </script>
+              <div class="card-body">
+                <div class="title" style:"text-align:center;  font-weight: bold;">
+                <h5 class="text-center card-title" id = "toDate"></h5>
+                <hr>
+              </div>
+                <ul>
+                  <li id = "todayTemp"></li>
+                  <li id = "todayFeel"></li>
+                  <li id = "todayHumid"></li>
+                  <li id = "todayDesc"></li>
+                </ul>
+              </div>
+              <div class="card-footer">
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+                <div class="title" style:"text-align:center;  font-weight: bold;">
+                <h5 class="text-center card-title" id = "tomDate"></h5>
+                <hr>
+              </div>
+
+                <ul>
+                  <li id = "tomTemp"></li>
+                  <li id = "tomFeel"></li>
+                  <li id = "tomHumid"></li>
+                  <li id = "tomDesc"></li>
+                </ul>
+
+              </div>
+              <div class="card-footer">
+              </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-body">
+                  <div class="title" style:"text-align:center;  font-weight: bold;">
+                  <h5 class="text-center card-title" id = "overDate"></h5>
+                  <hr>
+                </div>
+
+                <ul>
+                  <li id = "overTemp"></li>
+                  <li id = "overFeel"></li>
+                  <li id = "overHumid"></li>
+                  <li id = "overDesc"></li>
+                </ul>
+
+              </div>
+              <div class="card-footer">
+              </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-body">
+                  <div class="title" style:"text-align:center;  font-weight: bold;">
+                  <h5 class="text-center card-title" id = "overDate2"></h5>
+                  <hr>
+                </div>
+
+                <ul>
+                  <li id = "overTemp2"></li>
+                  <li id = "overFeel2"></li>
+                  <li id = "overHumid2"></li>
+                  <li id = "overDesc2"></li>
+                </ul>
+
+              </div>
+              <div class="card-footer">
+              </div>
+              </div>
+
+            <div class="card">
+
+              <div class="card-body">
+                <div class="title" style:"text-align:center;  font-weight: bold;">
+                <h5 class="text-center card-title" id = "overDate3"></h5>
+                <hr>
+                </div>
+
+                <ul>
+                <li id = "overTemp3"></li>
+                <li id = "overFeel3"></li>
+                <li id = "overHumid3"></li>
+                <li id = "overDesc3"></li>
+                </ul>
+
+                </div>
+              <div class="card-footer">
+
+              </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 style = "padding-top: 1em; padding-bottom: 1em; padding-left: 1em;">COVID Map</h3>
+          <div id="traffic" class="container-md" style= "height: 20em; padding-bottom: 10em;">
+
+<iframe src="https://ourworldindata.org/explorers/coronavirus-data-explorer?tab=map&zoomToSelection=true&time=2021-07-17&pickerSort=desc&pickerMetric=new_cases_per_million&Metric=Confirmed+cases&Interval=7-day+rolling+average&Relative+to+Population=true&Align+outbreaks=false&country=IND~USA~GBR~CAN~DEU~JPN&hideControls=true" loading="lazy" style="width: 100%; height: 40em; border: 0px none;"></iframe>
+
+          </div>
+
+          <h2 style = "padding-top: 12em; padding-bottom: 1em; padding-left:1em">Map</h3>
+          <div id="map" class="container-md" style= "height: 20em; padding-bottom: 10em;">
+
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuASUTc58ai6Ee1dmlxrt-bI8WKpWUX1o&callback=initMap&libraries=places&v=weekly">
+
+        </script>
+
+</div>
+        </div>
+
+
+
+        <section class="contact-section bg-black" style="margin-top: 5em;">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-4 mb-3 mb-md-0" style="padding-bottom: 5em">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Address</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">30 Robert H Harp Dr, Livingston, NJ 07039</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0" style="padding-bottom: 5em">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-envelope text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Email</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50"><a href="#!">raymond.moy@lps-students.org</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0" style="padding-bottom: 5em">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Phone</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">+1 (732) 649-8617</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      </body>
+      </html>
