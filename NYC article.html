@@ -33,7 +33,6 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="all locations.html">All Locations</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -249,29 +248,14 @@
             </div>
           </div>
 
-          <h3 style = "padding-top: 1em; padding-bottom: 1em; padding-left: 1em;">Foot Traffic</h3>
+          <h3 style = "padding-top: 1em; padding-bottom: 1em; padding-left: 1em;">COVID Map</h3>
           <div id="traffic" class="container-md" style= "height: 20em; padding-bottom: 10em;">
 
-            <script>
-
-            const params = new URLSearchParams({
-             'api_key_private': 'pri_d89e1232373646249fc1f28eeb8bf03c',
-              'venue_name': 'McDonalds',
-              'venue_address': 'Ocean Ave, San Fransisco'
-            });
-
-          //  fetch(`https://besttime.app/api/v1/forecasts?${params}`, {
-              method: 'POST'
-            }).then(function(data) {
-              console.log(JSON.stringify(data));
-            });
-
-            </script>
-
+<iframe src="https://ourworldindata.org/explorers/coronavirus-data-explorer?tab=map&zoomToSelection=true&time=2021-07-17&pickerSort=desc&pickerMetric=new_cases_per_million&Metric=Confirmed+cases&Interval=7-day+rolling+average&Relative+to+Population=true&Align+outbreaks=false&country=IND~USA~GBR~CAN~DEU~JPN&hideControls=true" loading="lazy" style="width: 100%; height: 40em; border: 0px none;"></iframe>
 
           </div>
 
-          <h2 style = "padding-top: 1em; padding-bottom: 1em; padding-left:1em">Map</h3>
+          <h2 style = "padding-top: 12em; padding-bottom: 1em; padding-left:1em">Map</h3>
           <div id="map" class="container-md" style= "height: 20em; padding-bottom: 10em;">
 
           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuASUTc58ai6Ee1dmlxrt-bI8WKpWUX1o&callback=initMap&libraries=places&v=weekly">
